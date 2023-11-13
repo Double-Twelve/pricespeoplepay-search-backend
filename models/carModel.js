@@ -90,6 +90,8 @@ function getCarsBasedOnFilter(columns, values) {
           conditions += " Odometer BETWEEN ? AND ?"
         } else if (columns[i] === "min_sold_date") {
           conditions += " Sold_Date BETWEEN ? AND ?"
+          console.log("s", values[i])
+          console.log("x", values[i + 1])
           const minSoldDateParts = values[i].split(" ")
           const minMonthIndex = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].indexOf(minSoldDateParts[1])
           const minSoldDate = new Date(parseInt(minSoldDateParts[3]), minMonthIndex, parseInt(minSoldDateParts[2]), parseInt(minSoldDateParts[4].split(":")[0]), parseInt(minSoldDateParts[4].split(":")[1]), parseInt(minSoldDateParts[4].split(":")[2]))
