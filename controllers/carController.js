@@ -4,7 +4,7 @@ const carModel = require("../models/carModel")
 async function getCarsData(req, res, next) {
   try {
     const data = await carModel.getCars()
-    res.json(data)
+    res.json({ data })
   } catch (error) {
     next(error)
   }
@@ -120,8 +120,25 @@ async function getCarFilterInformationData(req, res, next) {
   }
 }
 
+// Get eligible cars based on filters
+async function getCarsBasedOnFilterData(req, res, next) {
+  try {
+    const queryParams = req.query
+    const columns = Object.keys(queryParams)
+    const values = Object.values(queryParams)
+    const carData = await carModel.getCarsBasedOnFilter(columns, values)
+    const carStatsData = await carModel.getCarsStatsBasedOnFilter(columns, values)
+    carStatsData[0].make = req.query.Make
+    carStatsData[0].family = req.query.Model
+    res.json({ carData, carStatsData })
+  } catch (error) {
+    next(error)
+  }
+}
+
 module.exports = {
   getCarsData,
   getCarFamiliesData,
-  getCarFilterInformationData
+  getCarFilterInformationData,
+  getCarsBasedOnFilterData
 }

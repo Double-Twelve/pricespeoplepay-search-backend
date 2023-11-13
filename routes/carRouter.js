@@ -11,4 +11,7 @@ router.get("/family", carController.getCarFamiliesData)
 // Get the filter information of the corresponding car based on make and family
 router.get("/filter-information", carController.getCarFilterInformationData)
 
+// Get eligible cars based on filters
+router.get("/search-all", carController.getCarsBasedOnFilterData)
+
 module.exports = router
