@@ -58,27 +58,27 @@ function getCarsBasedOnFilter(columns, values) {
         removeValueIndex.push(i)
         continue
       }
-      else if (columns[i] === "orderBy") {
-        let orderByColumn = ""
+      else if (columns[i] === "sortBy") {
+        let sortByColumn = ""
         if (values[i] === "" || values[i] === "Sold Date") {
-          orderByColumn = "Sold_Date"
+          sortByColumn = "Sold_Date"
         }
         else if (values[i] === "Age") {
-          orderByColumn = "Age_Comp_Months"
+          sortByColumn = "Age_Comp_Months"
         }
         else if (values[i] === "Odometer") {
-          orderByColumn = "Odometer"
+          sortByColumn = "Odometer"
         }
         removeValueIndex.push(i)
-        orderBy = ` ORDER BY ${orderByColumn}`
+        sortBy = ` ORDER BY ${sortByColumn}`
         continue
       }
-      else if (columns[i] === "sortBy") {
+      else if (columns[i] === "orderBy") {
         if (values[i] === "" || values[i] === "Asc") {
-          sortBy = " ASC"
+          orderBy = " ASC"
         }
         else if (values[i] === "Desc") {
-          sortBy = " DESC"
+          orderBy = " DESC"
         }
         removeValueIndex.push(i)
         continue
@@ -100,6 +100,10 @@ function getCarsBasedOnFilter(columns, values) {
         }
       } else if (columns[i] === "keyword") {
         conditions += ` Description LIKE ?`
+        values[i] = `%${values[i]}%`
+      } else if (columns[i] === "Branch") {
+        conditions += ` Branch LIKE ?`
+        values[i] = `%${values[i]}%`
       } else {
         conditions += ` ${columns[i]} = ?`
       }
@@ -113,7 +117,7 @@ function getCarsBasedOnFilter(columns, values) {
       }
     }
 
-    const query = `SELECT * FROM Car WHERE${conditions}${orderBy}${sortBy} LIMIT 10${offset}`
+    const query = `SELECT * FROM Car WHERE${conditions}${sortBy}${orderBy} LIMIT 10${offset}`
     pool.query(query, values, function (error, results, fields) {
       if (error) {
         reject(error)
