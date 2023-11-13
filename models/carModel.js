@@ -29,7 +29,23 @@ function getCarFamilies(make) {
   })
 }
 
+// Get the filter information of the corresponding car based on make and family
+function getCarFilterInformation(make, family) {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT * FROM Car WHERE Make = ? AND Model = ?;`
+    const values = [make, family]
+    pool.query(query, values, function (error, results, fields) {
+      if (error) {
+        reject(error)
+      } else {
+        resolve(results)
+      }
+    })
+  })
+}
+
 module.exports = {
   getCars,
-  getCarFamilies
+  getCarFamilies,
+  getCarFilterInformation
 }
