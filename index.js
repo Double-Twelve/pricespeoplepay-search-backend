@@ -19,7 +19,6 @@ app.use((req, res, next) => {
 //Use routes
 app.use(routes)
 
-
 app.listen(9312, () => {
   console.log(`Server is running at http://localhost:9312`)
 })
