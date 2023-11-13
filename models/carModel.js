@@ -90,6 +90,7 @@ function getCarsBasedOnFilter(columns, values) {
           conditions += " Odometer BETWEEN ? AND ?"
         } else if (columns[i] === "min_sold_date") {
           conditions += " Sold_Date BETWEEN ? AND ?"
+          console.log(values[i], values[i + 1])
           values[i] = new Date(values[i]).toISOString()
           values[i + 1] = new Date(values[i + 1]).toISOString()
           if (i === columns.length - 2) {
