@@ -25,13 +25,15 @@ cd pricespeoplepay-search-backend
 
 Add a file named .env at the root directory. You can refer to the .env.sample file in the directory
 
-4. Install dependencies
+4. Run the provided data.sql script to create the database tables and insert data.
+
+5. Install dependencies
 
 ```bash
 npm install
 ```
 
-5. Run the project
+6. Run the project
 
 ```bash
 npm run start
