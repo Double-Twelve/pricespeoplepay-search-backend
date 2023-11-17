@@ -148,6 +148,10 @@ function getCarsStatsBasedOnFilter(columns, values) {
         }
       } else if (columns[i] === "keyword") {
         conditions += ` Description LIKE ?`
+        values[i] = `%${values[i]}%`
+      } else if (columns[i] === "Branch") {
+        conditions += ` Branch LIKE ?`
+        values[i] = `%${values[i]}%`
       } else {
         conditions += ` ${columns[i]} = ?`
       }
